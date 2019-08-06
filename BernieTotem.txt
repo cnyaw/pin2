@@ -1,0 +1,47 @@
+[good]
+version=0.3
+name=Bernie Totem
+window=480 320
+texs=0 1 2 3 5 6 7 10
+levels=8
+
+[scripts]
+4=./BernieTotem.lua
+
+[tex0]
+name=bkgnd
+fileName=./res/bkgnd.png
+
+[tex1]
+name=flower
+fileName=./res/flower.png
+
+[tex2]
+name=title
+fileName=./res/title.png
+
+[tex3]
+name=icon
+fileName=./res/icon.png
+
+[tex5]
+name=sizer
+fileName=./res/sizer.png
+
+[tex6]
+name=frame
+fileName=./res/frame.png
+
+[tex7]
+name=eye
+fileName=./res/eye.png
+
+[tex10]
+name=clock
+fileName=./res/clock.png
+
+[level8]
+name=game
+bgColor=0 128 0
+script=Game
+
