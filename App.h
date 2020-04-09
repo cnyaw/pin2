@@ -88,7 +88,7 @@ public:
       img.resize(mPicSel.getWidth(), mPicSel.getHeight());
     }
 
-    ((good::gx::GLImageRect<good::gx::GLImageResource>*)mPicSel.mSur)->tex->img.draw(mPicSel.mSur->left, mPicSel.mSur->top, img, 0, 0, mPicSel.getWidth(), mPicSel.getHeight());
+    mPicSel.draw(0, 0, img, 0, 0, mPicSel.getWidth(), mPicSel.getHeight());
     AppT::getInst().gx.restoreSur();
 
     return true;
