@@ -14,7 +14,7 @@
 
 #include "../../App.h"
 
-class BernieTotemApp : public good::rt::AndroidApplication<BernieTotemApp>, public BernieTotem::Application<BernieTotemApp>, public BernieTotem::NativeInterface
+class BernieTotemApp : public good::rt::AndroidApplication<BernieTotemApp>, public BernieTotem::Application<BernieTotemApp, good::gx::GLImage>, public BernieTotem::NativeInterface
 {
   BernieTotemApp() : bInit(false)
   {
@@ -27,8 +27,9 @@ public:
     return i;
   }
 
+  typedef good::gx::GLImage ImgT;
   typedef good::rt::AndroidApplication<BernieTotemApp> BaseT;
-  typedef BernieTotem::Application<BernieTotemApp> BernieTotemAppT;
+  typedef BernieTotem::Application<BernieTotemApp, ImgT> BernieTotemAppT;
   bool bInit;
 
   void onRender(void)

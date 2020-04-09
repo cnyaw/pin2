@@ -26,14 +26,14 @@
 
 namespace BernieTotem {
 
-template<class AppT>
+template<class AppT, class ImgT>
 class Application
 {
 public:
 
   State state;
   Game<AppT> game;
-  good::gx::GLImage mPicSel;
+  ImgT mPicSel;
 
   Application() : game(state), mPicSel(0)
   {
@@ -46,7 +46,7 @@ public:
     AppT &app = AppT::getInst();
     std::stringstream ss;
     if (app.loadFile("res/flower.png", ss)) {
-      mPicSel = good::gx::GLImage::getImage("BernieTotem.PicSel", ss.str());
+      mPicSel = ImgT::getImage("BernieTotem.PicSel", ss.str());
       app.state.rcPicRender = sw2::IntRect(BernieTotem::PUZZLEX + 1, BernieTotem::PUZZLEY + 1, BernieTotem::PUZZLEW, BernieTotem::PUZZLEH);
       app.state.rcPicSel = sw2::IntRect(0, 0, mPicSel.getWidth(), mPicSel.getHeight());
     }

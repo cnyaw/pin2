@@ -17,7 +17,7 @@
 
 CAppModule _Module;
 
-class CPlayer : public good::rt::CPlayerWindowImpl<CPlayer>, public BernieTotem::Application<CPlayer>, public BernieTotem::NativeInterface
+class CPlayer : public good::rt::CPlayerWindowImpl<CPlayer>, public BernieTotem::Application<CPlayer, good::gx::GLImage>, public BernieTotem::NativeInterface
 {
   CPlayer() : bInit(false)
   {
@@ -27,8 +27,9 @@ class CPlayer : public good::rt::CPlayerWindowImpl<CPlayer>, public BernieTotem:
 
 public:
 
+  typedef good::gx::GLImage ImgT;
   typedef CPlayerWindowImpl<CPlayer> BaseT;
-  typedef BernieTotem::Application<CPlayer> BernieTotemAppT;
+  typedef BernieTotem::Application<CPlayer, ImgT> BernieTotemAppT;
   bool bInit;
 
   static CPlayer& getInst()

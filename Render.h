@@ -34,7 +34,7 @@ void getTextDim(const char *pText, int &sw, int &sh) const
 {
   AppT &app = AppT::getInst();
   for (int i = 0; i < (int)strlen(pText); i++) {
-    good::gx::GLImage img = app.getImage(BERNIE_TOTEM_TEXT_SIZE, (int)pText[i]);
+    typename AppT::ImgT img = app.getImage(BERNIE_TOTEM_TEXT_SIZE, (int)pText[i]);
     if (img.isValid()) {
       sw += img.getWidth();
       sh = img.getHeight();
@@ -142,7 +142,7 @@ void myBitBltUi(URect const& ui, int img, int srcx, int srcy) const
 
 void sDrawTitle(int s, sw2::uint_ptr)
 {
-  if (TRIGGER == s) {
+  if (sw2::TRIGGER == s) {
 
     myBitBlt(20, 50, 420, 120, TITLE_TEX_ID, 0, 0, 211, 84);
 
@@ -159,7 +159,7 @@ void sDrawTitle(int s, sw2::uint_ptr)
 
 void sDrawPlay(int s, sw2::uint_ptr t)
 {
-  if (TRIGGER == s)
+  if (sw2::TRIGGER == s)
   {
     //
     // Puzzle.
@@ -247,8 +247,7 @@ void sDrawPlay(int s, sw2::uint_ptr t)
         myDrawNum(x, y, piece, state.spyview ? i + 1 : state.puzzle[i] + 1);
       }
 
-      if (state.win && TIME_WIN >state.timer && state.lack == state.puzzle[i])
-      {
+      if (state.win && TIME_WIN >state.timer && state.lack == state.puzzle[i]) {
         float t = state.timer / (float)TIME_WIN;
         int a = (int)(0xff * (1 - sin(3.1415926 * t / 2.0f)));
         myFillRect(x + 1, y + 1, piece - 1, piece - 1, a << 24);
@@ -303,7 +302,7 @@ void sDrawPlay(int s, sw2::uint_ptr t)
 
 void sDrawPicture(int s, sw2::uint_ptr)
 {
-  if (TRIGGER == s) {
+  if (sw2::TRIGGER == s) {
 
     //
     // Draw picture.
@@ -312,7 +311,7 @@ void sDrawPicture(int s, sw2::uint_ptr)
     myFillRect(PUZZLEX, PUZZLEY, PUZZLEW + 2, PUZZLEH + 2, 0xdc000000);
 
     AppT &app = AppT::getInst();
-    good::gx::GLImage &img = app.mPicSel;
+    typename AppT::ImgT &img = app.mPicSel;
     URect const &rs = state.rcPicSel;
     URect const &rr = state.rcPicRender;
 

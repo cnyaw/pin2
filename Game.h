@@ -106,7 +106,7 @@ public:
 
   void defaultSel()
   {
-    good::gx::GLImage &img = AppT::getInst().mPicSel;
+    typename AppT::ImgT &img = AppT::getInst().mPicSel;
 
     state.rcPicRender = URect(PUZZLEX + 1, PUZZLEY + 1, PUZZLEW, PUZZLEH);
     state.rcPicSel = URect(0, 0, img.getWidth(), img.getHeight());
@@ -167,11 +167,11 @@ public:
 
   void sMovePiece(int s, sw2::uint_ptr)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       state.timer = 0;
     }
 
-    if (TRIGGER == s && state.timerMovePiece <= ++state.timer) {
+    if (sw2::TRIGGER == s && state.timerMovePiece <= ++state.timer) {
       state.moving = -1;
       stage.pop();
       if (isGameComplete()) {
@@ -182,7 +182,7 @@ public:
 
   void sPlay(int s, sw2::uint_ptr t)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       renderStage.popAndPush(&Game::sDrawPlay);
       state.playing = false;
       state.win = false;
@@ -190,14 +190,14 @@ public:
       reset();
     }
 
-    if (TRIGGER == s) {
+    if (sw2::TRIGGER == s) {
       if (AppT::getInst().isKeyPushed(GOOD_KEYS_ESCAPE)) {
         stage.popAndPush(&Game::sTitle);
         return;
       }
     }
 
-    if (TRIGGER == s && t) {
+    if (sw2::TRIGGER == s && t) {
 
       HANDLE_TOUCH const* ht = (HANDLE_TOUCH const*)t;
       if (TOUCH_BEGIN != ht->s) {
@@ -292,7 +292,7 @@ public:
 
   void sPlaying(int s, sw2::uint_ptr t)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       state.playing = true;
       state.moves = 0;
       state.timerPlaying = 0;
@@ -300,7 +300,7 @@ public:
       state.spyview = false;
     }
 
-    if (TRIGGER == s) {
+    if (sw2::TRIGGER == s) {
 
       if (0 < state.moves) {
         state.timerPlaying += 1;
@@ -389,7 +389,7 @@ public:
 
   void sShuffle(int s, sw2::uint_ptr)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       int const count1[] = {SHUFFLE_1COUN3, SHUFFLE_1COUN4, SHUFFLE_1COUN5};
       state.counter = count1[state.size - SIZE3];
       state.counter1 = state.counter;
@@ -397,11 +397,11 @@ public:
       state.shuffling = true;
     }
 
-    if (LEAVE == s) {
+    if (sw2::LEAVE == s) {
       state.shuffling = false;
     }
 
-    if (TRIGGER == s) {
+    if (sw2::TRIGGER == s) {
 
       if (0 >= state.counter) {
         stage.pop();                    // Done, back to play.
@@ -465,7 +465,7 @@ public:
 
   void sTitle(int s, sw2::uint_ptr t)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       renderStage.popAndPush(&Game::sDrawTitle);
     }
 
@@ -484,12 +484,12 @@ public:
 
   void sWin(int s, sw2::uint_ptr t)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       state.timer = 0;
       state.win = true;
     }
 
-    if (TRIGGER == s) {
+    if (sw2::TRIGGER == s) {
       if (TIME_WIN > state.timer) {
         state.timer += 1;
       }
@@ -508,14 +508,14 @@ public:
 
   void sPicture(int s, sw2::uint_ptr t)
   {
-    if (JOIN == s) {
+    if (sw2::JOIN == s) {
       renderStage.push(&Game::sDrawPicture);
       state.picSel = PICSEL_NONE;
       state.flower = false;
       state.picture = true;
     }
 
-    if (TRIGGER == s) {
+    if (sw2::TRIGGER == s) {
       if (AppT::getInst().isKeyPushed(GOOD_KEYS_ESCAPE)) {
         stage.pop();
         renderStage.pop();
@@ -523,7 +523,7 @@ public:
       }
     }
 
-    if (TRIGGER == s && 0 != t) {
+    if (sw2::TRIGGER == s && 0 != t) {
       HANDLE_TOUCH const* ht = (HANDLE_TOUCH const*)t;
       if (TOUCH_BEGIN == ht->s) {
 
@@ -581,7 +581,7 @@ public:
         URect rcRender = URect(rr.left, rr.top, rr.left + rr.right, rr.top + rr.bottom);
         if (rcRender.ptInRect(pt)) {
 
-          good::gx::GLImage &img = AppT::getInst().mPicSel;
+          typename AppT::ImgT &img = AppT::getInst().mPicSel;
 
           //
           // Click in selection area. Get dragging mode.
@@ -616,7 +616,7 @@ public:
 
   void sPictureSel(int s, sw2::uint_ptr t)
   {
-    if (TRIGGER != s || 0 == t) {
+    if (sw2::TRIGGER != s || 0 == t) {
       return;
     }
 
@@ -629,7 +629,7 @@ public:
 
     UPoint pt(ht->x, ht->y);
 
-    good::gx::GLImage &img = AppT::getInst().mPicSel;
+    typename AppT::ImgT &img = AppT::getInst().mPicSel;
     URect const &rr = state.rcPicRender;
     URect &rs = state.rcPicSel;
 
