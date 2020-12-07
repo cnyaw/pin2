@@ -22,7 +22,7 @@
 # define GOOD_SUPPORT_GDIPLUS
 #endif
 
-#include "../good/src/good/gx/img.h"
+#include "gx/img.h"
 
 namespace BernieTotem {
 
