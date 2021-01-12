@@ -282,7 +282,7 @@ public:
       //
 
       if (ptInUi(state.uiPlayRand, pt)) {
-        state.size = sw2::rangeRand(3, 5);
+        state.size = sw2::Util::rangeRand(3, 5);
         state.lack = rand() % (state.size * state.size);
         reset();
         stage.popAndPush(&Game::sPlaying);
