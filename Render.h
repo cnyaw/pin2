@@ -32,16 +32,7 @@ void draw()
 
 void getTextDim(const char *pText, int &sw, int &sh) const
 {
-  AppT &app = AppT::getInst();
-  for (int i = 0; i < (int)strlen(pText); i++) {
-    typename AppT::ImgT img = app.getImage(BERNIE_TOTEM_TEXT_SIZE, (int)pText[i]);
-    if (img.isValid()) {
-      sw += img.getWidth();
-      sh = img.getHeight();
-    } else {
-      sw += 10;
-    }
-  }
+  AppT::getInst().getTextDim(pText, BERNIE_TOTEM_TEXT_SIZE, sw, sh);
 }
 
 void myDrawNum(int x, int y, int sz, int n) const

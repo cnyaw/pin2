@@ -14,9 +14,9 @@
 
 #include "../../App.h"
 
-class BernieTotemApp : public good::rt::AndroidApplication<BernieTotemApp>, public BernieTotem::Application<BernieTotemApp, good::gx::GLImage>, public BernieTotem::NativeInterface
+class BernieTotemApp : public BernieTotem::Application<BernieTotemApp, good::gx::GLImage, good::rt::AndroidApplication<BernieTotemApp> >, public BernieTotem::NativeInterface
 {
-  BernieTotemApp() : bInit(false)
+  BernieTotemApp()
   {
     srand((unsigned int)time(NULL));
   }
@@ -28,23 +28,6 @@ public:
   }
 
   typedef good::gx::GLImage ImgT;
-  typedef good::rt::AndroidApplication<BernieTotemApp> BaseT;
-  typedef BernieTotem::Application<BernieTotemApp, ImgT> BernieTotemAppT;
-  bool bInit;
-
-  void onRender(void)
-  {
-    if ("Bernie Totem" == mRes.mName && -1 != mRoot) {
-      if (!bInit) {
-        bInit = true;
-        BernieTotemAppT::initApp(this);
-      }
-      BernieTotemAppT::triggerApp();
-      BernieTotemAppT::draw();
-    }
-
-    BaseT::onRender();
-  }
 
   virtual bool nativeLoadPicture(int type)
   {

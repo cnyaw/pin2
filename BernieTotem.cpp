@@ -17,9 +17,9 @@
 
 CAppModule _Module;
 
-class CPlayer : public good::rt::CPlayerWindowImpl<CPlayer>, public BernieTotem::Application<CPlayer, good::gx::GLImage>, public BernieTotem::NativeInterface
+class CPlayer : public BernieTotem::Application<CPlayer, good::gx::GLImage, good::rt::CPlayerWindowImpl<CPlayer> >, public BernieTotem::NativeInterface
 {
-  CPlayer() : bInit(false)
+  CPlayer()
   {
     tip = "Press O to toggle trace messages";
     showFPS = true;
@@ -29,8 +29,6 @@ public:
 
   typedef good::gx::GLImage ImgT;
   typedef CPlayerWindowImpl<CPlayer> BaseT;
-  typedef BernieTotem::Application<CPlayer, ImgT> BernieTotemAppT;
-  bool bInit;
 
   static CPlayer& getInst()
   {
@@ -43,26 +41,12 @@ public:
     CHAIN_MSG_MAP(BaseT)
   END_MSG_MAP()
 
-  void onRender(void)
-  {
-    if ("Bernie Totem" == mRes.mName && -1 != mRoot) {
-      if (!bInit) {
-        bInit = true;
-        BernieTotemAppT::initApp(this);
-      }
-      BernieTotemAppT::triggerApp();
-      BernieTotemAppT::draw();
-    }
-
-    BaseT::onRender();
-  }
-
   void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
   {
     if ('O' == nChar) {
-      ToggleOutput();
+      BaseT::ToggleOutput();
     } else if ('T' == nChar) {
-      ToggleTexInfo();
+      BaseT::ToggleTexInfo();
     }
   }
 
@@ -82,7 +66,7 @@ public:
       return false;
     }
 
-    return BernieTotemAppT::loadPicSel(img);
+    return loadPicSel(img);
   }
 };
 

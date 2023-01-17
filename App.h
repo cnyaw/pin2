@@ -19,24 +19,38 @@
 #include "Game.h"
 
 #ifdef WIN32
-# define GOOD_SUPPORT_GDIPLUS
+# define GOOD_SUPPORT_GDIPLUS_IMG
 #endif
 
 #include "gx/img.h"
 
 namespace BernieTotem {
 
-template<class AppT, class ImgT>
-class Application
+template<class AppT, class ImgT, class BaseT>
+class Application : public BaseT
 {
 public:
 
+  bool bInit;
   State state;
   Game<AppT> game;
   ImgT mPicSel;
 
-  Application() : game(state), mPicSel(0)
+  Application() : bInit(false), game(state), mPicSel(0)
   {
+  }
+
+  void onRender(void)
+  {
+    if ("Bernie Totem" == BaseT::mRes.mName && -1 != BaseT::mRoot) {
+      if (!bInit) {
+        bInit = true;
+        initApp((AppT*)&AppT::getInst());
+      }
+      triggerApp();
+      draw();
+    }
+    BaseT::onRender();
   }
 
   void initApp(NativeInterface *native)
@@ -56,7 +70,7 @@ public:
   {
     AppT &app = AppT::getInst();
 
-    if (!(app.mPrevKeys & GOOD_KEYS_LBUTTON) && (app.mKeys & GOOD_KEYS_LBUTTON)) {
+    if (app.isKeyPushed(GOOD_KEYS_LBUTTON)) {
       game.touchBegin(app.mMousePos.x, app.mMousePos.y);
     }
 
